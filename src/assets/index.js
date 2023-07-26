@@ -1,4 +1,5 @@
 import linkedin from "./In-White-26.png";
+import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
 
@@ -25,6 +26,7 @@ import tzero from "./company/tzero.jfif";
 
 export {
   linkedin,
+  github,
   menu,
   close,
   css,

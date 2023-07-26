@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { menu, close, linkedin } from "../assets";
+import { menu, close, linkedin, github } from "../assets";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
@@ -54,16 +54,23 @@ const Navbar = () => {
       }`}
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-        <a
-          href="https://www.linkedin.com/in/daniel-baker-0646535a/"
-          target="_blank"
-        >
-          <p className="text-white text-[18px] font-bold cursor-pointer flex ">
-            Dan Baker &#183; bakerz2009@gmail.com&nbsp;&nbsp;
+        <p className="text-white text-[18px] font-bold flex ">
+          Dan Baker &#183; bakerz2009@gmail.com&nbsp;&nbsp;
+          <a
+            className="pt-1"
+            href="https://www.linkedin.com/in/daniel-baker-0646535a/"
+            target="_blank"
+          >
             <img src={linkedin} alt="LinkedIn" className="w-5 h-5 object-contain" />
-          </p>
-        </a>
-
+          </a>
+          <a
+            className="px-1 pt-1"
+            href="https://github.com/Retcor"
+            target="_blank"
+          >
+            <img src={github} alt="LinkedIn" className="w-5 h-5 object-contain" />
+          </a>
+        </p>
         <ul className="list-none hidden sm:flex flex-row gap-10">
           {navLinks.map((nav) => (
             <li
