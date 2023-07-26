@@ -9,5 +9,5 @@ spec:
     app: danbaker-info
   ports:
   - port: 80
-    targetPort: 3000
+    targetPort: 80
   type: NodePort

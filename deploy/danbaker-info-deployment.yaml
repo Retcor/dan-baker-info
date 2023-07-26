@@ -24,4 +24,4 @@ spec:
         - name: REACT_APP_API_URL
           value: "https://api.bakerrang.com"
         ports:
-        - containerPort: 3000
+        - containerPort: 80
