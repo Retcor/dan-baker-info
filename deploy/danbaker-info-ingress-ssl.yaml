@@ -1,0 +1,28 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: danbaker-info-certificate
+spec:
+  domains:
+    - danbaker.info
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: danbaker-info-ssl-ingress
+  annotations:
+    kubernetes.io/ingress.class: gce
+    networking.gke.io/managed-certificates: danbaker-info-certificate
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  rules:
+  - host: danbaker.info
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: danbaker-info-nodeport
+            port:
+              number: 80

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: danbaker-info-nodeport
+  labels:
+    app: danbaker-info
+spec:
+  selector:
+    app: danbaker-info
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: NodePort

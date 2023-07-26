@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: danbaker-info-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: danbaker-info
+  template:
+    metadata:
+      labels:
+        app: danbaker-info
+    spec:
+      containers:
+      - name: danbaker-info
+        image: gcr.io/avian-cable-379805/danbaker-info:0.0.1
+        resources:
+          limits:
+            cpu: "0.2"
+          requests:
+            cpu: "0.05"
+        env:
+        - name: REACT_APP_API_URL
+          value: "https://api.bakerrang.com"
+        ports:
+        - containerPort: 3000
