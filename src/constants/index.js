@@ -14,7 +14,10 @@ import {
   spring,
   kotlin,
   java,
-  gcp, ilio, equivant, tzero,
+  gcp,
+  ilio,
+  equivant,
+  tzero,
 } from "../assets";
 
 export const navLinks = [
@@ -27,8 +30,8 @@ export const navLinks = [
     title: "Work",
   },
   {
-    id: "storybook",
-    title: "Story Book",
+    id: "website",
+    title: "Website",
   },
 ];
 

@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import About from "./About";
 import Tech from "./Tech";
 import Experience from "./Experience";
-import Contact from "./StoryBook.jsx";
+import Website from "./Website.jsx";
 import CanvasLoader from "./Loader";
 
 
@@ -13,6 +13,6 @@ export {
   About,
   Tech,
   Experience,
-  Contact,
+  Website,
   CanvasLoader
 };
