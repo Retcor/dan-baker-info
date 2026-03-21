@@ -7,9 +7,10 @@ import {
   Hero,
   Navbar,
   Tech,
+  ChatBot,
 } from "./components";
 
-export const SERVER_PREFIX = import.meta.env.REACT_APP_API_URL || `http://${window.location.hostname}:3001`
+export const SERVER_PREFIX = 'https://api.bakerrang.com'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Website />
         </div>
       </div>
+      <ChatBot />
     </BrowserRouter>
   );
 };

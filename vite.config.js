@@ -9,6 +9,6 @@ export default defineConfig({
     // Otherwise, the build will just create the index.html that nginx.conf takes care of
     host: true,
     strictPort: true,
-    port: 8080,
+    port: 3001,
   },
 })

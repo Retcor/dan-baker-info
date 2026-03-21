@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
+import backgroundImage from '../assets/DanAndCar.png'
 
 const Hero = () => {
   return (
-    <section className={`relative w-full h-screen mx-auto`}>
+    <section className={`relative w-full h-screen mx-auto overflow-hidden`}>
+      {/* Shared max-width container — text left, image right on md+ */}
       <div
-        className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
+        className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-end justify-between`}
       >
-        <div>
+        <div className="flex-1 z-10 min-w-0 self-start pt-4 md:pr-6">
           <h1 className={`${styles.heroHeadText} text-white`}>
             Hi, I'm <span className="text-[#D4ED31]">Dan</span>
           </h1>
@@ -18,6 +20,26 @@ const Hero = () => {
             in making life more fun and productive.
           </p>
         </div>
+
+        {/* Inline image — only on md and above where there's room */}
+        <div className="hidden md:flex items-end justify-end flex-shrink-0 pointer-events-none">
+          <img
+            src={backgroundImage}
+            alt="Dan Baker with RC car"
+            className="w-auto"
+            style={{ height: 'clamp(280px, 78vh, 780px)' }}
+          />
+        </div>
+      </div>
+
+      {/* Mobile/tablet image — absolute overlay below md so text is never squished */}
+      <div className="md:hidden absolute bottom-0 right-0 flex items-end justify-end pointer-events-none">
+        <img
+          src={backgroundImage}
+          alt=""
+          className="w-auto opacity-40"
+          style={{ height: 'clamp(300px, 68vh, 560px)' }}
+        />
       </div>
 
       <div className="absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center">

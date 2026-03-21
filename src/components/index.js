@@ -5,6 +5,7 @@ import Tech from "./Tech";
 import Experience from "./Experience";
 import Website from "./Website.jsx";
 import CanvasLoader from "./Loader";
+import ChatBot from "./ChatBot.jsx";
 
 
 export {
@@ -14,5 +15,6 @@ export {
   Tech,
   Experience,
   Website,
-  CanvasLoader
+  CanvasLoader,
+  ChatBot
 };
