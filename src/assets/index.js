@@ -33,6 +33,8 @@ import ilio from "./company/ilio.svg";
 import stg from "./company/stg.png";
 import equivant from "./company/equivant.jfif";
 import tzero from "./company/tzero.jfif";
+import cratermus from "./company/cratermus.png";
+import keyhole from "./company/keyhole.jfif";
 
 export {
   linkedin,
@@ -54,6 +56,8 @@ export {
   stg,
   equivant,
   tzero,
+  cratermus,
+  keyhole,
   kubernetes,
   spring,
   kotlin,

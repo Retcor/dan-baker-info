@@ -6,7 +6,7 @@ import backgroundImage from '../assets/DanAndCar.png'
 const Hero = () => {
   return (
     <section className={`relative w-full h-screen mx-auto overflow-hidden`}>
-      {/* Shared max-width container — text left, image right on md+ */}
+      {/* Shared max-width container: text left, image right on md+ */}
       <div
         className={`absolute inset-0 top-[120px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-end justify-between`}
       >
@@ -21,7 +21,7 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Inline image — only on md and above where there's room */}
+        {/* Inline image, only on md and above where there's room */}
         <div className="hidden md:flex items-end justify-end flex-shrink-0 pointer-events-none">
           <img
             src={backgroundImage}
@@ -32,7 +32,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Mobile/tablet image — absolute overlay below md so text is never squished */}
+      {/* Mobile/tablet image as an absolute overlay below md so text is never squished */}
       <div className="md:hidden absolute bottom-0 right-0 flex items-end justify-end pointer-events-none">
         <img
           src={backgroundImage}

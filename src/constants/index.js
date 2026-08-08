@@ -18,6 +18,8 @@ import {
   ilio,
   equivant,
   tzero,
+  cratermus,
+  keyhole,
   nextjs,
   tailwind,
   ktor,
@@ -165,6 +167,7 @@ const technologies = [
 const experiences = [
   {
     title: "Jr Software Developer",
+    type: "career",
     company_name: "Usana Health Sciences",
     icon: usana,
     iconBg: "#383E56",
@@ -178,6 +181,7 @@ const experiences = [
   },
   {
     title: "Jr Software Developer",
+    type: "side",
     company_name: "Ilio",
     icon: ilio,
     iconBg: "#fffdfd",
@@ -189,6 +193,7 @@ const experiences = [
   },
   {
     title: "Software Developer",
+    type: "career",
     company_name: "Software Technology Group",
     icon: stg,
     iconBg: "#fffdfd",
@@ -201,6 +206,7 @@ const experiences = [
   },
   {
     title: "Sr Software Developer / Team Lead",
+    type: "career",
     company_name: "Equivant",
     icon: equivant,
     iconBg: "#fffdfd",
@@ -215,6 +221,7 @@ const experiences = [
   },
   {
     title: "Sr Software Developer",
+    type: "career",
     company_name: "tZERO",
     icon: tzero,
     iconBg: "#000000",
@@ -228,7 +235,32 @@ const experiences = [
     ],
   },
   {
+    title: "Sr Software Developer",
+    type: "side",
+    company_name: "Keyhole / 1898 and Co",
+    icon: keyhole,
+    iconBg: "#fffdfd",
+    date: "Nov 2023 - Feb 2024",
+    points: [
+      "Nightly position working on improving APIs that already existed.",
+      "Enjoyed getting my hands on Python / Django and picking up a different tech stack.",
+    ],
+  },
+  {
+    title: "Sr Software Developer",
+    type: "side",
+    company_name: "Cratermus.com",
+    icon: cratermus,
+    iconBg: "#fffdfd",
+    date: "Jul 2026 - Present",
+    points: [
+      "Designed and implemented Cratermus.com, which serves as a marketing page for a local music producer.",
+      "Ongoing work as needed to update features on Cratermus.com to support marketing efforts.",
+    ],
+  },
+  {
     title: "Sr Software Developer / AI Engineer",
+    type: "career",
     company_name: "Equivant",
     icon: equivant,
     iconBg: "#fffdfd",

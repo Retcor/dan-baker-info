@@ -23,7 +23,7 @@ const Website = () => {
         variants={fadeIn("up", "tween", 0.2, 1)}
         className="mt-8 bg-black-100 rounded-2xl shadow-card p-8 sm:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-12"
       >
-        {/* Logo badge — sits on a light tile so its dark blocks stay legible */}
+        {/* Logo badge on a light tile so its dark blocks stay legible */}
         <a
           href="https://bakerrang.com"
           target="_blank"
@@ -57,7 +57,7 @@ const Website = () => {
           <p className="mt-4 text-secondary text-[16px] leading-[28px]">
             Come on over and check out my project website! BakerRang.com is currently built with a
             React / Vite frontend and a Node backend, deployed on Google Cloud Run using Docker
-            containers. It's my playground for learning new tech and having fun with it — so at times
+            containers. It's my playground for learning new tech and having fun with it, so at times
             the site won't be up while I'm experimenting with new ideas, but those should just be short
             windows of downtime.
           </p>

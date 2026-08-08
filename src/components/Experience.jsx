@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -57,7 +57,15 @@ const ExperienceCard = ({ experience }) => {
   );
 };
 
+const tabs = [
+  { id: "career", label: "Career" },
+  { id: "side", label: "Side Gigs" },
+];
+
 const Experience = () => {
+  const [activeTab, setActiveTab] = useState("career");
+  const shown = experiences.filter((experience) => experience.type === activeTab);
+
   return (
     <>
       <motion.div variants={textVariant()}>
@@ -65,12 +73,34 @@ const Experience = () => {
         <h2 className={styles.sectionHeadText}>Work Experience.</h2>
       </motion.div>
 
-      <div className="mt-20 flex flex-col">
-        <VerticalTimeline>
-          {experiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} />
+      <div className="mt-8 flex justify-center">
+        <div className="inline-flex p-1 rounded-xl bg-black-100">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-5 py-2 rounded-lg text-[14px] sm:text-[16px] font-medium transition-colors ${
+                activeTab === tab.id
+                  ? "bg-white-100 text-primary"
+                  : "text-secondary hover:text-white"
+              }`}
+            >
+              {tab.label}
+            </button>
           ))}
-        </VerticalTimeline>
+        </div>
+      </div>
+
+      <div className="mt-10 flex flex-col">
+        {shown.length === 0 ? (
+          <p className="text-secondary text-center text-[16px]">More coming soon.</p>
+        ) : (
+          <VerticalTimeline key={activeTab}>
+            {shown.map((experience, index) => (
+              <ExperienceCard key={index} experience={experience} />
+            ))}
+          </VerticalTimeline>
+        )}
       </div>
     </>
   );
