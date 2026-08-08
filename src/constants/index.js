@@ -18,6 +18,15 @@ import {
   ilio,
   equivant,
   tzero,
+  nextjs,
+  tailwind,
+  ktor,
+  express,
+  vite,
+  postgresql,
+  firebase,
+  openai,
+  claude,
 } from "../assets";
 
 export const navLinks = [
@@ -47,6 +56,11 @@ const technologies = [
     title: "CSS"
   },
   {
+    name: "Tailwind CSS",
+    icon: tailwind,
+    title: "Tailwind CSS"
+  },
+  {
     name: "JavaScript",
     icon: javascript,
     title: "Javascript"
@@ -62,6 +76,11 @@ const technologies = [
     title: "React JS"
   },
   {
+    name: "Next JS",
+    icon: nextjs,
+    title: "Next.js"
+  },
+  {
     name: "Redux Toolkit",
     icon: redux,
     title: "Redux"
@@ -70,6 +89,16 @@ const technologies = [
     name: "Node JS",
     icon: nodejs,
     title: "Node"
+  },
+  {
+    name: "Express",
+    icon: express,
+    title: "Express"
+  },
+  {
+    name: "Vite",
+    icon: vite,
+    title: "Vite"
   },
   {
     name: "git",
@@ -97,14 +126,39 @@ const technologies = [
     title: "Kotlin"
   },
   {
+    name: "Ktor",
+    icon: ktor,
+    title: "Ktor"
+  },
+  {
     name: "java",
     icon: java,
     title: "Java"
   },
   {
+    name: "PostgreSQL",
+    icon: postgresql,
+    title: "PostgreSQL"
+  },
+  {
+    name: "Firestore",
+    icon: firebase,
+    title: "Firestore (Firebase)"
+  },
+  {
     name: "gcp",
     icon: gcp,
     title: "Google Cloud Platform"
+  },
+  {
+    name: "OpenAI",
+    icon: openai,
+    title: "OpenAI"
+  },
+  {
+    name: "Anthropic Claude",
+    icon: claude,
+    title: "Anthropic Claude"
   },
 ];
 
@@ -164,13 +218,27 @@ const experiences = [
     company_name: "tZERO",
     icon: tzero,
     iconBg: "#000000",
-    date: "Dec 2021 - Current",
+    date: "Dec 2021 - Dec 2023",
     points: [
       "Was hired as a Sr Frontend Developer but spent most of my time on backend issues where we needed the most love.",
       "Maintained numerous microservices ranging from React/Redux, Kotlin/Spring, Kotlin/Ktor, Node and Next.js.",
       "Implemented functionality to migrate customer data from older services to newer services, cutting out 10 year old functionality no longer used and allowing to remove multiple microservices no longer needed.",
       "Migrated KYC processes from multiple vendors down to one, saving the company money and ensuring a much easier KYC process.",
       "Worked with Devops to help better CI/CD pipelines and ensure best code practices."
+    ],
+  },
+  {
+    title: "Sr Software Developer / AI Engineer",
+    company_name: "Equivant",
+    icon: equivant,
+    iconBg: "#fffdfd",
+    date: "Dec 2023 - Present",
+    points: [
+      "Offered position to return to equivant working on their Integration software.",
+      "I helped lead an AI initiative to incorporate it's usage throughout the company, providing initial validation and POC documentation outlining it's benefits but also it's pitfalls.",
+      "I implemented dozens of interfaces that integrated customer systems to our companies CMS products. This often required customer facing coordination and testing.",
+      "Redesigned many Integration related applications to make them more modern feeling, improving on customer willingness to engage with them.",
+      "Moved to the newly created AI team to help implement greenfield projects and work on creating organization AI skills, tools and in-app AI RAG solutions."
     ],
   },
 ];

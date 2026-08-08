@@ -2,6 +2,7 @@ import linkedin from "./In-White-26.png";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
+import bakerrangLogo from "./bakerrang-logo.png";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -17,6 +18,15 @@ import spring from "./tech/spring-boot.png";
 import kotlin from "./tech/Kotlin_Icon.svg.png";
 import java from "./tech/java.png";
 import gcp from "./tech/google-cloud-platform.png";
+import nextjs from "./tech/nextjs.svg";
+import tailwind from "./tech/tailwind.svg";
+import ktor from "./tech/ktor.svg";
+import express from "./tech/express.svg";
+import vite from "./tech/vite.svg";
+import postgresql from "./tech/postgresql.svg";
+import firebase from "./tech/firebase.svg";
+import openai from "./tech/openai.svg";
+import claude from "./tech/claude.svg";
 
 import usana from "./company/USANA_logo.svg";
 import ilio from "./company/ilio.svg";
@@ -29,6 +39,7 @@ export {
   github,
   menu,
   close,
+  bakerrangLogo,
   css,
   docker,
   git,
@@ -48,4 +59,13 @@ export {
   kotlin,
   java,
   gcp,
+  nextjs,
+  tailwind,
+  ktor,
+  express,
+  vite,
+  postgresql,
+  firebase,
+  openai,
+  claude,
 };
