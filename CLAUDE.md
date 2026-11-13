@@ -16,27 +16,12 @@ npm run build         # Build production bundle to dist/
 npm run preview       # Preview production build locally
 ```
 
-### Docker & Cloud Run Deployment
-```bash
-# Build Docker image (from root directory with Dockerfile)
-docker build -t gcr.io/<project-id>/dan-baker-info:latest .
-
-# Push to Google Container Registry
-docker push gcr.io/<project-id>/dan-baker-info:latest
-
-# Deploy to Cloud Run
-gcloud run deploy dan-baker-info \
-  --image gcr.io/<project-id>/dan-baker-info:latest \
-  --platform managed \
-  --region us-central1 \
-  --allow-unauthenticated \
-  --port 8080
-
-# View service details
-gcloud run services describe dan-baker-info --region us-central1
-```
-
-**Note**: The `deploy/*.yaml` files are legacy Kubernetes configurations from a previous deployment method and are no longer used.
+### Deployment
+Google Cloud Run: service `danbaker-info` in **`us-west1`**, project `avian-cable-379805`, image
+`us-west1-docker.pkg.dev/avian-cable-379805/danbaker-info/site:<sha>`, domain-mapped to `https://danbaker.info`.
+**Merging to `main` deploys automatically** (`.github/workflows/deploy.yml`: keyless GitHub→GCP auth, smoke
+check, auto-rollback); PRs run an image build check (`ci.yml`). Procedure, permissions and manual fallback:
+`docs/RUNBOOK.md`. Kubernetes/GKE is retired — don't reintroduce `deploy/*.yaml` manifests.
 
 ## Architecture
 
@@ -46,8 +31,8 @@ gcloud run services describe dan-baker-info --region us-central1
   1. Stage 1: Node.js builds the Vite app to `dist/`
   2. Stage 2: nginx serves static files from `dist/`
   3. nginx listens on port 8080 with SPA routing (all routes → index.html)
-  4. Docker image pushed to Google Container Registry (GCR)
-  5. Deployed as a Cloud Run service with auto-scaling and HTTPS
+  4. Image pushed to Artifact Registry `danbaker-info` by the Deploy workflow on merge to `main`
+  5. Deployed to the Cloud Run service `danbaker-info` (`us-west1`) with auto-scaling and HTTPS
 
 ### Project Structure
 ```
@@ -91,9 +76,9 @@ src/
 - Content data lives in `src/constants/index.js`, not hardcoded in components
 - Components import reusable styles from `src/styles.js`
 
-### Environment Variables
-- `REACT_APP_API_URL`: Optional backend API URL (defaults to `http://<hostname>:3001`)
-- Accessed via `import.meta.env.REACT_APP_API_URL` in App.jsx
+### Backend
+- The chatbot calls the BakerRang API at `SERVER_PREFIX` (`https://api.bakerrang.com`, hard-coded in
+  `src/App.jsx`). The API only accepts this site because its `CHATBOT_ORIGIN` is `https://danbaker.info`.
 
 ## Styling Conventions
 - Uses Tailwind utility classes throughout
@@ -111,4 +96,4 @@ src/
   - Auto-scaling (scales to zero when idle)
   - Load balancing
   - Custom domain support via Cloud Run domain mappings
-- Legacy `deploy/*.yaml` files are from previous Kubernetes deployment (deprecated)
+- Procedure: `docs/RUNBOOK.md`

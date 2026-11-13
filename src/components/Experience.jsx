@@ -78,8 +78,10 @@ const Experience = () => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
+              type="button"
+              aria-pressed={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-2 rounded-lg text-[14px] sm:text-[16px] font-medium transition-colors ${
+              className={`px-5 py-2 rounded-lg text-[14px] sm:text-[16px] font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31] ${
                 activeTab === tab.id
                   ? "bg-white-100 text-primary"
                   : "text-secondary hover:text-white"

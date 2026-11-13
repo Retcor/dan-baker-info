@@ -3,77 +3,128 @@ import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
-import { bakerrangLogo } from "../assets";
+import { playgroundTools } from "../constants";
+import { bakerrangLogo, linkedin, github } from "../assets";
 
-const ExternalLinkIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path fillRule="evenodd" d="M15.75 2.25H21a.75.75 0 01.75.75v5.25a.75.75 0 01-1.5 0V4.81L8.03 17.03a.75.75 0 01-1.06-1.06L19.19 3.75h-3.44a.75.75 0 010-1.5zm-10.5 4.5a1.5 1.5 0 00-1.5 1.5v10.5a1.5 1.5 0 001.5 1.5h10.5a1.5 1.5 0 001.5-1.5V10.5a.75.75 0 011.5 0v8.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V8.25a3 3 0 013-3h8.25a.75.75 0 010 1.5H5.25z" clipRule="evenodd" />
+const LAUNCHER_URL = "https://launch.bakerrang.com";
+
+const Arrow = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    className={className}
+  >
+    <path d="M5 12h14M13 6l6 6-6 6" />
   </svg>
 );
 
+const focusRing =
+  "outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31] focus-visible:ring-offset-2 focus-visible:ring-offset-card";
+
 const Website = () => {
   return (
-    <div className="xl:mt-12">
+    <>
       <motion.div variants={textVariant()}>
         <p className={styles.sectionSubText}>Check it out</p>
         <h2 className={styles.sectionHeadText}>My Playground.</h2>
       </motion.div>
 
+      <motion.p
+        variants={fadeIn("", "", 0.1, 1)}
+        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
+      >
+        BakerRang is where I build things for fun and to learn. It's a small family of web apps that
+        share one Google sign-in, each on its own subdomain and installable as its own app. React and
+        Vite up front, a Node/Express API on Google Cloud Run behind it.
+      </motion.p>
+
       <motion.div
         variants={fadeIn("up", "tween", 0.2, 1)}
-        className="mt-8 bg-black-100 rounded-2xl shadow-card p-8 sm:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-12"
+        className="mt-10 bg-card rounded-2xl shadow-card p-6 sm:p-10 grid gap-8 md:grid-cols-[minmax(0,260px)_1fr] md:gap-12"
       >
-        {/* Logo badge on a light tile so its dark blocks stay legible */}
-        <a
-          href="https://bakerrang.com"
-          target="_blank"
-          rel="noreferrer"
-          className="group shrink-0"
-          aria-label="Visit BakerRang.com"
-        >
-          <div className="rounded-3xl bg-gradient-to-br from-white to-[#e8e8f0] p-5 shadow-card transition-transform duration-300 group-hover:scale-105">
-            <img
-              src={bakerrangLogo}
-              alt="BakerRang logo"
-              className="w-32 h-32 md:w-40 md:h-40 object-contain"
-            />
+        {/* Brand: logo in a white disc, like the timeline company icons */}
+        <div className="flex flex-col items-center text-center md:items-start md:text-left">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#fffdfd] flex items-center justify-center shrink-0">
+            <img src={bakerrangLogo} alt="" className="w-[62%] h-[62%] object-contain" />
           </div>
-        </a>
-
-        {/* Content */}
-        <div className="flex-1 text-center md:text-left">
+          <h3 className="mt-6 text-white font-black text-[28px] sm:text-[32px] leading-tight">
+            BakerRang
+          </h3>
+          <p className="mt-1 text-secondary text-[15px]">launch.bakerrang.com</p>
           <a
-            className="group inline-flex items-center gap-2"
+            href={LAUNCHER_URL}
             target="_blank"
             rel="noreferrer"
-            href="https://bakerrang.com"
+            className={`group mt-6 inline-flex items-center gap-2 rounded-lg bg-white-100 px-5 py-2.5 text-[15px] font-semibold text-primary transition-colors hover:bg-white ${focusRing}`}
           >
-            <h3 className="text-white font-black text-[32px] sm:text-[40px] transition-colors group-hover:text-[#FFD500]">
-              BakerRang.com
-            </h3>
-            <ExternalLinkIcon className="w-6 h-6 text-secondary transition-colors group-hover:text-[#FFD500]" />
-          </a>
-
-          <p className="mt-4 text-secondary text-[16px] leading-[28px]">
-            Come on over and check out my project website! BakerRang.com is currently built with a
-            React / Vite frontend and a Node backend, deployed on Google Cloud Run using Docker
-            containers. It's my playground for learning new tech and having fun with it, so at times
-            the site won't be up while I'm experimenting with new ideas, but those should just be short
-            windows of downtime.
-          </p>
-
-          <a
-            href="https://bakerrang.com"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex items-center gap-2 bg-[#FFD500] text-primary font-bold py-2.5 px-6 rounded-xl transition-colors hover:bg-[#e6c000]"
-          >
-            Visit the site
-            <ExternalLinkIcon className="w-4 h-4" />
+            Open BakerRang
+            <Arrow className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-[3px]" />
           </a>
         </div>
+
+        {/* The tools, each straight to its own subdomain */}
+        <ul className="flex flex-col">
+          {playgroundTools.map((tool, index) => (
+            <li
+              key={tool.name}
+              className={index > 0 ? "border-t border-[rgba(170,166,195,0.1)]" : ""}
+            >
+              <a
+                href={tool.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`group -mx-3 flex items-center gap-4 rounded-xl px-3 py-4 transition-colors hover:bg-white/[0.04] ${focusRing}`}
+              >
+                <span className="flex-1 min-w-0">
+                  <span className="block text-white text-[18px] font-semibold">{tool.name}</span>
+                  <span className="mt-0.5 block text-secondary text-[14px] sm:text-[15px] leading-[24px]">
+                    {tool.description}
+                  </span>
+                </span>
+                <Arrow className="w-5 h-5 shrink-0 text-secondary transition duration-200 group-hover:translate-x-[3px] group-hover:text-[#D4ED31] group-focus-visible:text-[#D4ED31]" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </motion.div>
-    </div>
+
+      <footer className="mt-16 pt-6 border-t border-[rgba(170,166,195,0.1)] flex flex-wrap items-center justify-between gap-4 text-secondary text-[14px]">
+        <p>
+          © {new Date().getFullYear()} Dan Baker &#183;{" "}
+          <a
+            href="mailto:bakerz2009@gmail.com"
+            className="underline-offset-4 hover:text-white hover:underline rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31]"
+          >
+            bakerz2009@gmail.com
+          </a>
+        </p>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://www.linkedin.com/in/daniel-baker-0646535a/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Dan Baker on LinkedIn"
+            className="opacity-70 transition-opacity hover:opacity-100 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31]"
+          >
+            <img src={linkedin} alt="" className="w-5 h-5 object-contain" />
+          </a>
+          <a
+            href="https://github.com/Retcor"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Dan Baker on GitHub"
+            className="opacity-70 transition-opacity hover:opacity-100 rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31]"
+          >
+            <img src={github} alt="" className="w-5 h-5 object-contain" />
+          </a>
+        </div>
+      </footer>
+    </>
   );
 };
 

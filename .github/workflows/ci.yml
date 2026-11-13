@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  image-build:
+    name: Production image builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Builds exactly what deploy.yml ships: the Vite build runs inside the Dockerfile.
+      - name: Build image
+        run: docker build -t danbaker-info:ci .
+
+      - name: Serve it and check the page
+        run: |
+          set -euo pipefail
+          docker run -d --rm --name site -p 8080:8080 danbaker-info:ci
+          for i in $(seq 1 20); do curl -fsS http://localhost:8080/ >/dev/null && break; sleep 1; done
+          curl -fsS http://localhost:8080/ | grep -q '<title>Dan Baker</title>'
+          # SPA fallback: deep links still serve the app.
+          curl -fsS http://localhost:8080/some/deep/link | grep -q '<div id="root">'
+          docker stop site
