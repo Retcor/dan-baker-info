@@ -42,7 +42,7 @@ export const navLinks = [
   },
   {
     id: "website",
-    title: "Website",
+    title: "Playground",
   },
 ];
 
@@ -275,4 +275,34 @@ const experiences = [
   },
 ];
 
-export { technologies, experiences };
+// The BakerRang tools listed in the Playground section. Descriptions follow the
+// Launcher's own copy (bakerrang/web/apps/launcher).
+const playgroundTools = [
+  {
+    name: "Story Book",
+    url: "https://storybook.bakerrang.com",
+    description: "Write and illustrate a story with a few words, then have it read aloud.",
+  },
+  {
+    name: "Polyglot",
+    url: "https://polyglot.bakerrang.com",
+    description: "Speak and translate between languages, out loud, in real time.",
+  },
+  {
+    name: "Sign Language",
+    url: "https://sign.bakerrang.com",
+    description: "Practise ASL handshapes with your camera. Sign reads your hand on this device.",
+  },
+  {
+    name: "Budget",
+    url: "https://budget.bakerrang.com",
+    description: "See which paycheck covers which bills, month by month.",
+  },
+  {
+    name: "Passwords",
+    url: "https://passwords.bakerrang.com",
+    description: "Logins in folders, encrypted in your browser with a master password only you know.",
+  },
+];
+
+export { technologies, experiences, playgroundTools };

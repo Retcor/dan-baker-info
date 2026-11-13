@@ -54,21 +54,26 @@ const Navbar = () => {
       }`}
     >
       <div className="w-full flex justify-between items-center max-w-7xl mx-auto">
-        <p className="text-white text-[18px] font-bold flex ">
-          Dan Baker &#183; bakerz2009@gmail.com&nbsp;&nbsp;
+        <p className="min-w-0 text-white text-[18px] font-bold flex items-center gap-2">
+          <span className="truncate">
+            Dan Baker
+            <span className="hidden sm:inline"> &#183; bakerz2009@gmail.com</span>
+          </span>
           <a
-            className="pt-1"
+            className="shrink-0"
             href="https://www.linkedin.com/in/daniel-baker-0646535a/"
             target="_blank"
+            rel="noreferrer"
           >
             <img src={linkedin} alt="LinkedIn" className="w-5 h-5 object-contain" />
           </a>
           <a
-            className="px-1 pt-1"
+            className="shrink-0"
             href="https://github.com/Retcor"
             target="_blank"
+            rel="noreferrer"
           >
-            <img src={github} alt="LinkedIn" className="w-5 h-5 object-contain" />
+            <img src={github} alt="GitHub" className="w-5 h-5 object-contain" />
           </a>
         </p>
         <ul className="list-none hidden sm:flex flex-row gap-10">
@@ -84,13 +89,20 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="sm:hidden flex flex-1 justify-end items-center">
-          <img
-            src={toggle ? close : menu}
-            alt="menu"
-            className="w-[28px] h-[28px] object-contain"
+        <div className="sm:hidden flex flex-1 shrink-0 justify-end items-center pl-4">
+          <button
+            type="button"
+            aria-label={toggle ? "Close menu" : "Open menu"}
+            aria-expanded={toggle}
             onClick={() => setToggle(!toggle)}
-          />
+            className="shrink-0 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-[#D4ED31]"
+          >
+            <img
+              src={toggle ? close : menu}
+              alt=""
+              className="w-[28px] h-[28px] object-contain"
+            />
+          </button>
 
           <div
             className={`${
