@@ -1,0 +1,11 @@
+# Files `gcloud builds submit` leaves out of the upload. The Docker build
+# itself uses .dockerignore; keep the two lists in step.
+.gcloudignore
+.git
+.gitignore
+.idea
+.playwright-mcp
+node_modules
+dist
+nul
+*.md
