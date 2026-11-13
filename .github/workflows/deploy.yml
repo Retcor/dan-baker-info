@@ -1,0 +1,123 @@
+name: Deploy
+
+# Every push to main builds the image, deploys it to Cloud Run and checks
+# https://danbaker.info is serving that exact build. A failed check routes
+# traffic back to the revision that was live before. See docs/RUNBOOK.md.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - ".github/workflows/ci.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy danbaker.info
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      REGION: ${{ vars.GCP_REGION }}
+      SERVICE: ${{ vars.CLOUD_RUN_SERVICE }}
+      RUNTIME_SA: ${{ vars.GCP_RUNTIME_SA }}
+      PUBLIC_URL: ${{ vars.PUBLIC_URL }}
+      IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.AR_REPOSITORY }}/site:${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOYER_SA }}
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Build and push image
+        id: image
+        run: |
+          set -euo pipefail
+          gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE"
+          # The hashed bundle name identifies this build; the smoke check waits for it.
+          bundle=$(docker run --rm --entrypoint cat "$IMAGE" /usr/share/nginx/html/index.html \
+            | grep -o 'assets/index-[A-Za-z0-9_-]*\.js' | head -1)
+          test -n "$bundle"
+          echo "bundle=$bundle" >> "$GITHUB_OUTPUT"
+
+      - name: Record the live revision
+        id: before
+        run: |
+          set -euo pipefail
+          rev=$(gcloud run services describe "$SERVICE" --region "$REGION" \
+            --format='value(status.traffic[0].revisionName)')
+          echo "revision=$rev" >> "$GITHUB_OUTPUT"
+          echo "Live before deploy: $rev"
+
+      - name: Deploy to Cloud Run
+        id: deploy
+        run: |
+          set -euo pipefail
+          gcloud run deploy "$SERVICE" \
+            --image "$IMAGE" \
+            --region "$REGION" \
+            --service-account "$RUNTIME_SA" \
+            --quiet
+          # Undo any manual rollback pin so the new revision takes all traffic.
+          gcloud run services update-traffic "$SERVICE" --region "$REGION" --to-latest --quiet
+          rev=$(gcloud run services describe "$SERVICE" --region "$REGION" \
+            --format='value(status.latestReadyRevisionName)')
+          echo "revision=$rev" >> "$GITHUB_OUTPUT"
+
+      - name: Smoke check ${{ vars.PUBLIC_URL }}
+        env:
+          BUNDLE: ${{ steps.image.outputs.bundle }}
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 30); do
+            page=$(curl -fsS "${PUBLIC_URL%/}/" || true)
+            if grep -q "$BUNDLE" <<<"$page" && grep -q '<title>Dan Baker</title>' <<<"$page"; then
+              curl -fsS -o /dev/null "${PUBLIC_URL%/}/some/deep/link"
+              echo "Serving $BUNDLE"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::${PUBLIC_URL} is not serving $BUNDLE after 5 minutes"
+          exit 1
+
+      - name: Roll back on failure
+        if: failure() && steps.deploy.outcome != 'skipped' && steps.before.outputs.revision != ''
+        env:
+          PREVIOUS: ${{ steps.before.outputs.revision }}
+        run: |
+          gcloud run services update-traffic "$SERVICE" --region "$REGION" \
+            --to-revisions "${PREVIOUS}=100" --quiet
+          echo "::warning::Traffic routed back to $PREVIOUS"
+
+      - name: Summary
+        if: always()
+        env:
+          BEFORE: ${{ steps.before.outputs.revision }}
+          AFTER: ${{ steps.deploy.outputs.revision }}
+          STATUS: ${{ job.status }}
+        run: |
+          {
+            echo "### danbaker.info deploy: $STATUS"
+            echo
+            echo "- Image: \`$IMAGE\`"
+            echo "- Revision before: \`${BEFORE:-n/a}\`"
+            echo "- Revision after: \`${AFTER:-n/a}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

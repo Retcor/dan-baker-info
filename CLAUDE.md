@@ -18,9 +18,10 @@ npm run preview       # Preview production build locally
 
 ### Deployment
 Google Cloud Run: service `danbaker-info` in **`us-west1`**, project `avian-cable-379805`, image
-`gcr.io/avian-cable-379805/danbaker-info`, domain-mapped to `https://danbaker.info`. Deploys are manual
-(no CI). The full build/deploy/verify/rollback procedure is in `docs/RUNBOOK.md`; follow it rather than
-improvising commands. Kubernetes/GKE is retired — don't reintroduce `deploy/*.yaml` manifests.
+`us-west1-docker.pkg.dev/avian-cable-379805/danbaker-info/site:<sha>`, domain-mapped to `https://danbaker.info`.
+**Merging to `main` deploys automatically** (`.github/workflows/deploy.yml`: keyless GitHub→GCP auth, smoke
+check, auto-rollback); PRs run an image build check (`ci.yml`). Procedure, permissions and manual fallback:
+`docs/RUNBOOK.md`. Kubernetes/GKE is retired — don't reintroduce `deploy/*.yaml` manifests.
 
 ## Architecture
 
@@ -30,7 +31,7 @@ improvising commands. Kubernetes/GKE is retired — don't reintroduce `deploy/*.
   1. Stage 1: Node.js builds the Vite app to `dist/`
   2. Stage 2: nginx serves static files from `dist/`
   3. nginx listens on port 8080 with SPA routing (all routes → index.html)
-  4. Image pushed to `gcr.io/avian-cable-379805/danbaker-info` (Cloud Build or local Docker)
+  4. Image pushed to Artifact Registry `danbaker-info` by the Deploy workflow on merge to `main`
   5. Deployed to the Cloud Run service `danbaker-info` (`us-west1`) with auto-scaling and HTTPS
 
 ### Project Structure

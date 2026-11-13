@@ -7,4 +7,5 @@ Navigate to root direction where the package.json is located and run `npm i`. Th
 ## Deploy
 
 The site runs on Google Cloud Run (service `danbaker-info`, `us-west1`, mapped to `https://danbaker.info`).
-Build, deploy, verify and rollback steps are in [docs/RUNBOOK.md](docs/RUNBOOK.md).
+Merging to `main` deploys automatically through GitHub Actions. The pipeline, rollback and the manual
+fallback are in [docs/RUNBOOK.md](docs/RUNBOOK.md).
