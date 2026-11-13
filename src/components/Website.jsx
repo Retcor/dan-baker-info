@@ -47,12 +47,14 @@ const Website = () => {
         variants={fadeIn("up", "tween", 0.2, 1)}
         className="mt-10 bg-card rounded-2xl shadow-card p-6 sm:p-10 grid gap-8 md:grid-cols-[minmax(0,260px)_1fr] md:gap-12"
       >
-        {/* Brand: logo in a white disc, like the timeline company icons */}
-        <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-[#fffdfd] flex items-center justify-center shrink-0">
-            <img src={bakerrangLogo} alt="" className="w-[62%] h-[62%] object-contain" />
-          </div>
-          <h3 className="mt-6 text-white font-black text-[28px] sm:text-[32px] leading-tight">
+        {/* Brand: the logo sits straight on the card, centred against the tool list */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <img
+            src={bakerrangLogo}
+            alt=""
+            className="w-24 h-24 sm:w-28 sm:h-28 object-contain drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)]"
+          />
+          <h3 className="mt-5 text-white font-black text-[28px] sm:text-[32px] leading-tight">
             BakerRang
           </h3>
           <p className="mt-1 text-secondary text-[15px]">launch.bakerrang.com</p>
